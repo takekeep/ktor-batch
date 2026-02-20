@@ -76,5 +76,14 @@ class SimpleBatch private constructor(
     class Configuration {
         var intervalMs: Long = 10_000
         var worker: suspend () -> Unit = {}
+
+        // Optional: provide a FileBatchReader to supply the worker implementation
+        var fileReader: FileBatchReader? = null
+            set(value) {
+                field = value
+                if (value != null) {
+                    worker = value.worker()
+                }
+            }
     }
 }
