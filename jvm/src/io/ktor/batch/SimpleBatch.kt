@@ -1,5 +1,7 @@
 package io.ktor.batch
 
+import io.ktor.batch.read.FileBatchReader
+import io.ktor.batch.write.FileBatchWriter
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationStarted
 import io.ktor.server.application.ApplicationStopped
@@ -79,6 +81,14 @@ class SimpleBatch private constructor(
 
         // Optional: provide a FileBatchReader to supply the worker implementation
         var fileReader: FileBatchReader? = null
+            set(value) {
+                field = value
+                if (value != null) {
+                    worker = value.worker()
+                }
+            }
+        // Optional: provide a FileBatchWriter to supply the worker implementation
+        var fileWriter: FileBatchWriter? = null
             set(value) {
                 field = value
                 if (value != null) {

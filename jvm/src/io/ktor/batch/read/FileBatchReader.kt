@@ -1,4 +1,4 @@
-package io.ktor.batch
+package io.ktor.batch.read
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -42,4 +42,3 @@ class FileBatchReader(
      */
     fun worker(): suspend () -> Unit = { readAll() }
 }
-
